@@ -1977,6 +1977,8 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+
+/* Add your styles here */
+.full-width {
+  width: 100%;
 }
