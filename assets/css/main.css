@@ -1982,3 +1982,8 @@ section,
 .full-width {
   width: 100%;
 }
+
+.fit-screenheight {
+  height: 75vh;
+  width: 70vw;
+}
