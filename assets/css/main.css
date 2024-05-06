@@ -969,21 +969,21 @@ section,
 }
 
 .featured-services .service-item .icon {
-  background-color: rgba(var(--accent-color-rgb), 0.2);
   width: 72px;
   height: 72px;
-  position: relative;
+  /* position: relative; */
   margin-right: 15px;
   line-height: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   transition: ease-in-out 0.3s;
 }
 
 .featured-services .service-item .icon i {
   color: var(--accent-color);
-  font-size: 32px;
+  font-size: 60px;
+  font-weight: bold;
   z-index: 2;
   position: relative;
 }
@@ -998,21 +998,21 @@ section,
   color: var(--heading-color);
 }
 
-.featured-services .service-item .title a:hover {
+/* .featured-services .service-item .title a:hover {
   color: var(--accent-color);
-}
+} */
 
 .featured-services .service-item .description {
   font-size: 14px;
 }
-
+/* 
 .featured-services .service-item:hover .icon {
   background-color: var(--accent-color);
-}
+} */
 
-.featured-services .service-item:hover .icon i {
+/* .featured-services .service-item:hover .icon i {
   color: var(--contrast-color);
-}
+} */
 
 /*--------------------------------------------------------------
 # About Section
