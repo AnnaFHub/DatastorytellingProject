@@ -198,4 +198,68 @@
       </div>`;
     });
   }
+
+
+  /**
+   * Map
+   */
+  // map setup
+  var map = L.map('map').setView([46.066666, 11.116667], 11);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+
+  // var polygon = L.polygon([
+  //   [46.066, 11.110],
+  //   [46.068, 11.113],
+  //   [46.064, 11.112]
+  // ]).addTo(map);
+
+  // polygon.on('click', onPolygonClick);
+  let polygonClickCounter = 0;
+  let prevLayerClicked = null;
+
+  fetch('./assets/circoscrizioni.geojson')
+    .then((response) => response.json())
+    .then((json) => { 
+      // do what you want to do with `data` here...
+      json.features.forEach(function(feature) {
+        let elem = L.geoJSON(feature, {
+          name: feature.properties.nome
+        }).addTo(map);
+
+        elem.on('click', onPolygonClick);
+      });
+    });
+
+  // Function to be called when a polygon is clicked
+  function onPolygonClick(e){
+    console.log(e.target.options.name)
+    polygonClickCounter++;
+    document.querySelector('#counter').innerHTML = e.target.options.name;
+
+    if (prevLayerClicked !== null) {
+      // Reset style
+      prevLayerClicked.setStyle({
+        fillOpacity: 0.1,
+        fillColor: 'blue'
+      });
+    }
+    
+    var layer = e.target;
+    
+    if(layer === prevLayerClicked) {
+      prevLayerClicked = null;
+      return;
+    }
+    
+    layer.setStyle({
+      fillOpacity: 0.6,
+      fillColor: 'blue'
+    });
+    
+    prevLayerClicked = layer;
+  }
 })();

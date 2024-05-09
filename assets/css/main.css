@@ -2006,3 +2006,8 @@ section,
 .hide{
   display: none;
 }
+
+#map { 
+  height: 400px; 
+  width: 400px;
+}
