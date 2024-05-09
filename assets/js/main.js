@@ -252,9 +252,11 @@
     
     if(layer === prevLayerClicked) {
       prevLayerClicked = null;
+      map.setView([46.066666, 11.116667], 11);
       return;
     }
     
+    map.fitBounds(e.target.getBounds());
     layer.setStyle({
       fillOpacity: 0.6,
       fillColor: 'blue'
