@@ -171,4 +171,31 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  /**
+   * add data from csv sheet
+   */
+  fetch('./assets/construction_sites.json')
+    .then((response) => response.json())
+    .then((json) => addSliderElements(json));
+
+  function addSliderElements(json) {
+    const sliderWrapper = document.querySelector('#project-slider');
+    console.log(json);
+    console.log(sliderWrapper);
+
+    sliderWrapper.innerHTML = json.map((site) => {
+      return `
+      <div class="swiper-slide">
+        <div class="testimonial-item">
+          <p>
+          ${site.DESCRIZIONE}
+          </p>
+          <div class="profile mt-auto">
+            <img src="${site.URLIMAGE}" class="slider-image" alt="">
+            <h3>${site.CIRCOSCRIZIONE}</h3>
+          </div>
+        </div>
+      </div>`;
+    });
+  }
 })();

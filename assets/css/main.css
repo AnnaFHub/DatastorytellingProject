@@ -1983,7 +1983,26 @@ section,
   width: 100%;
 }
 
-.fit-screenheight {
-  height: 75vh;
-  width: 70vw;
+.center-text {
+  text-align: center;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.warn{
+  color: red;
+  font-size: 150px;
+  font-weight: bold;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.hide{
+  display: none;
 }
