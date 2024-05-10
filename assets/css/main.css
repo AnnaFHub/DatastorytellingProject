@@ -23,10 +23,10 @@
   --background-color-rgb: 255, 255, 255;
   --default-color: #3d4348;
   --default-color-rgb: 61, 67, 72;
-  --heading-color: #3e5055;
+  --heading-color: #554b3e;
   --heading-color-rgb: 62, 80, 85;
-  --accent-color: #388da8;
-  --accent-color-rgb: 56, 141, 168;
+  --accent-color: #ff7b00;
+  --accent-color-rgb: 255, 123, 0;
   --contrast-color: #ffffff;
   --contrast-color-rgb: 255, 255, 255;
 }
@@ -38,6 +38,8 @@
   --nav-dropdown-color: #313336;
   --nav-dropdown-hover-color: #77b6ca;
   --nav-dropdown-background-color: #ffffff;
+
+  --map-width: 400px;
 }
 
 /* Smooth scroll */
@@ -1618,9 +1620,9 @@ section,
 /*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
-.testimonials {
+/* .testimonials {
   --background-color: rgba(var(--accent-color-rgb), .03);
-}
+} */
 
 .testimonials .testimonial-item {
   background-color: var(--contrast-color);
@@ -2009,7 +2011,7 @@ section,
 
 #map { 
   height: 500px; 
-  width: 400px;
+  width: var(--map-width);
 }
 
 /* should not be done for accessibility reasons (focus with tab navigation not clear)... but for the quick fix for the presentation we'll go with this */
@@ -2055,4 +2057,18 @@ path.leaflet-interactive:focus {
 /* color when hovering over the scrollbar */
 .testimonial-description-container::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.colorScale{
+  background: #e6a257;
+  background-image: linear-gradient(90deg, #ffffe5, #ff8400);
+  height: 10px;
+  width: var(--map-width);
+  margin-top: 10px;
+}
+
+.colorScaleLegend{
+  display: flex;
+  justify-content: space-between;
+  width: var(--map-width);
 }

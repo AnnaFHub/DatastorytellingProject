@@ -225,6 +225,36 @@
     'CENTRO STORICO PIEDICASTELLO': 'In this Circoscrizione the number of construction is very high due to the function it has in the city life. The main constructions regard the mobility both for car and bicycle (with PNRR financing). 3 schools have been renewed for a better energy qualification. Furthermore the old castle “Buonconsiglio" has been renovated and the adjacent square also had some changes. In conclusion 2 green areas will be renovated and in a few time a indoor will be unlimited'
   }
 
+  let projectCountArea = {
+    'MEANO': 2,
+    'BONDONE': 5,
+    'SARDAGNA': 1,
+    'ARGENTARIO': 9,
+    'S.GIUSEPPE-S.CHIARA': 17,
+    'POVO': 4,
+    'RAVINA-ROMAGNANO': 1,
+    'MATTARELLO': 3,
+    'VILLAZZANO': 0,
+    'OLTREFERSINA': 6,
+    'GARDOLO': 5,
+    'CENTRO STORICO PIEDICASTELLO': 16
+  }
+
+  function getColorForArea(area) {
+    let projectCount = projectCountArea[area];
+    let orangeValue = Math.min(255, Math.floor(255 * (projectCount / 10)));
+    let colorHex = `#${orangeValue.toString(16).padStart(2, '0')}a500`; // RRGG00 format
+
+    return colorHex;
+  }
+
+  function getOpacityForArea(area) {
+    let projectCount = projectCountArea[area];
+    let opacity = Math.min(1, 0.1 + (0.5 * (projectCount / 10)));
+
+    return opacity;
+  }
+
   let prevLayerClicked = null;
   let prevName = null;
   let defaultMapInfoText = '<h3>Learn more about the single circoscrizione</h3><div>Click on the map to see a short description of the construction sites in the circoscrizione.</div>'
@@ -239,24 +269,35 @@
           name: feature.properties.nome
         }).addTo(map);
 
+        elem.setStyle(
+          {
+            fillOpacity: getOpacityForArea(feature.properties.nome),
+            fillColor: 'orange',
+            color: 'grey'
+          }
+        )
+
         elem.on('click', onPolygonClick);
         elem.on('mouseover', function(e) {
           if(prevLayerClicked !== elem){
             elem.setStyle({
               fillOpacity: 0.3,
-              fillColor: 'blue'
+              fillColor: 'grey',
+              color: 'grey'
             });
           }
         });
         elem.on('mouseout', function(e) {
           if(prevLayerClicked !== elem){
-            elem.setStyle({
-              fillOpacity: 0.1,
-              fillColor: 'blue'
+            console.log(e.target.options.name)
+            e.target.setStyle({
+              fillOpacity: getOpacityForArea(e.target.options.name),
+              fillColor: 'orange',
+              color: 'grey'
             });
           }
         });
-        elem.bindTooltip(feature.properties.nome, {direction: 'center', className: 'map-label'});
+        elem.bindTooltip('<b>' + feature.properties.nome + '</b><br>' + projectCountArea[feature.properties.nome] + ' project(s)', {direction: 'center', className: 'map-label'});
       });
     });
 
@@ -267,8 +308,9 @@
     if (prevLayerClicked !== null) {
       // Reset style
       prevLayerClicked.setStyle({
-        fillOpacity: 0.1,
-        fillColor: 'blue'
+        fillOpacity: getOpacityForArea(prevName),
+        fillColor: 'orange',
+        color: 'grey'
       });
       document.querySelector('#'+prevName.replace(/[ .]/g,"_")+'-chart').classList.add('hide');
     }
@@ -286,9 +328,11 @@
     
     //map.fitBounds(e.target.getBounds());
     layer.setStyle({
-      fillOpacity: 0.6,
-      fillColor: 'blue'
+      fillOpacity: getOpacityForArea(e.target.options.name),
+      fillColor: 'orange',
+      color: 'white'
     });
+    layer.bringToFront();
     document.querySelector('#js-map-info-text').innerHTML = '<h3>' + e.target.options.name + '</h3> <div>' + mapAreaDescription[e.target.options.name] + '</div>';
     console.log(e.target.options.name)
     console.log(e.target.options.name.replace(/[ .]/g,"_"))
