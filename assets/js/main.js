@@ -210,6 +210,20 @@
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
+  let mapAreaDescription = {
+    'MEANO': 'In this Circoscrizione the constructions have the goal to prevent risk to the viability for car and pedestrians.',
+    'BONDONE': 'The most notable construction in this Circoscrizione is the realisation of a roundabout instead of an intersection in the connection with the city centre. The other construction regards the service for the inhabitants: a roof for the football field, the securing of one of the church’s walls. For tourism the fountain in the main square has been repaired',
+    'SARDAGNA': 'The project is to create new classes and common areas for children. The idea is to give to the inhabitants better service and to attract new people with this services.',
+    'ARGENTARIO': 'This Circoscrizione is quite far from the city centre and it is on a mountain side. For this reason they are creating a new fire fighter station for volunteers, in order to have a quick response. They are also preventing the rock falling and the avalanche risk with three works. For the inhabitants the administration is expanding a common building used by the local associations and the school has been energy requalificated. Other works regard the securing walkways.',
+    'S.GIUSEPPE-S.CHIARA': 'In this Circoscrizione many constructions regard the requalification of old buildings, giving them a new function for example in 2 school part of the building would be changed to have more space for children or just to be renewed, an administration buro will be build and a gym will be requalified. Considering that this area is very populated the administration decided to invest in a cycle way (with PNRR financing) For Turism 2 historical buildings will be repaired and a bus stop will be created.',
+    'POVO': 'This Circoscrizione is in a higher position than the city centre and many villages are even higher. To connect Maesiano with Povo centre the administration projects an inclined lift. To connect Povo and Villazzano a new cycle/pedestrian way will be created. And in Povo centre a common building will be  renovated.',
+    'RAVINA-ROMAGNANO': 'The project is to create new classes and common areas for children. The idea is to give the inhabitants better service and to attract new people with these services.',
+    'MATTARELLO': 'The main projects are 2:  to create new classes and common areas for elementary school and to expand common building for the local associations. another work regard the securing walkway.',
+    'VILLAZZANO': 'To connect Povo and Villazzano a new cycle/pedestrian way will be created.',
+    'OLTREFERSINA': '2 schools have been renewed for a better energy qualification. 3 different sport centres have been expanded and another one has been energetically requalified.',
+    'GARDOLO': 'This Circoscrizione is the industrial part of the city. For this reason the administration created new apartments for workers with disabilities to make this area more attractive for everyone. With this idea they also created a new cycleway and renewed railway overpass.',
+    'CENTRO STORICO PIEDICASTELLO': 'In this Circoscrizione the number of construction is very high due to the function it has in the city life. The main constructions regard the mobility both for car and bicycle (with PNRR financing). 3 schools have been renewed for a better energy qualification. Furthermore the old castle “Buonconsiglio" has been renovated and the adjacent square also had some changes. In conclusion 2 green areas will be renovated and in a few time a indoor will be unlimited'
+  }
 
   // var polygon = L.polygon([
   //   [46.066, 11.110],
@@ -218,8 +232,9 @@
   // ]).addTo(map);
 
   // polygon.on('click', onPolygonClick);
-  let polygonClickCounter = 0;
   let prevLayerClicked = null;
+  let defaultMapInfoText = '<h3>Learn more about the single circoscrizioni</h3><div>Click on the map to see a short description of the construction sites in the circoscrizione.</div>'
+  document.querySelector('#js-map-info-text').innerHTML = defaultMapInfoText;
 
   fetch('./assets/circoscrizioni.geojson')
     .then((response) => response.json())
@@ -237,8 +252,6 @@
   // Function to be called when a polygon is clicked
   function onPolygonClick(e){
     console.log(e.target.options.name)
-    polygonClickCounter++;
-    document.querySelector('#counter').innerHTML = e.target.options.name;
 
     if (prevLayerClicked !== null) {
       // Reset style
@@ -250,17 +263,20 @@
     
     var layer = e.target;
     
+    // reset to default state if one circoscrizione is clicked twice
     if(layer === prevLayerClicked) {
       prevLayerClicked = null;
-      map.setView([46.066666, 11.116667], 11);
+      //map.setView([46.066666, 11.116667], 11);
+      document.querySelector('#js-map-info-text').innerHTML = defaultMapInfoText;
       return;
     }
     
-    map.fitBounds(e.target.getBounds());
+    //map.fitBounds(e.target.getBounds());
     layer.setStyle({
       fillOpacity: 0.6,
       fillColor: 'blue'
     });
+    document.querySelector('#js-map-info-text').innerHTML = '<h3>' + e.target.options.name + '</h3> <div>' + mapAreaDescription[e.target.options.name] + '</div>';
     
     prevLayerClicked = layer;
   }
