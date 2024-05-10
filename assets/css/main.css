@@ -2016,3 +2016,43 @@ section,
 path.leaflet-interactive:focus {
   outline: none;
 }
+
+.testimonial-item{
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.testimonial-img-container{
+  width:100%;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.testimonial-description-container{
+  max-height: 200px;
+  overflow-y: scroll;
+  padding-right: 5px;
+}
+
+/* width and height for the scrollbar track */
+.testimonial-description-container::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  margin-left: 10px;
+}
+
+/* color of the scrollbar track */
+.testimonial-description-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* color of the scrollbar handle */
+.testimonial-description-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* color when hovering over the scrollbar */
+.testimonial-description-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

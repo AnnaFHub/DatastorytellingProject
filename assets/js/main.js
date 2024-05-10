@@ -187,12 +187,12 @@
       return `
       <div class="swiper-slide">
         <div class="testimonial-item">
-          <p>
+        <h3>${site.OPERA}</h3>
+          <p class="testimonial-description-container">
           ${site.DESCRIZIONE}
           </p>
-          <div class="profile mt-auto">
+          <div class="profile mt-auto testimonial-img-container">
             <img src="${site.URLIMAGE}" class="slider-image" alt="">
-            <h3>${site.CIRCOSCRIZIONE}</h3>
           </div>
         </div>
       </div>`;
@@ -226,7 +226,8 @@
   }
 
   let prevLayerClicked = null;
-  let defaultMapInfoText = '<h3>Learn more about the single circoscrizioni</h3><div>Click on the map to see a short description of the construction sites in the circoscrizione.</div>'
+  let prevName = null;
+  let defaultMapInfoText = '<h3>Learn more about the single circoscrizione</h3><div>Click on the map to see a short description of the construction sites in the circoscrizione.</div>'
   document.querySelector('#js-map-info-text').innerHTML = defaultMapInfoText;
 
   // Load geojson data and add circoscrizioni to the map
@@ -269,6 +270,7 @@
         fillOpacity: 0.1,
         fillColor: 'blue'
       });
+      document.querySelector('#'+prevName.replace(/[ .]/g,"_")+'-chart').classList.add('hide');
     }
     
     var layer = e.target;
@@ -278,6 +280,7 @@
       prevLayerClicked = null;
       //map.setView([46.066666, 11.116667], 11);
       document.querySelector('#js-map-info-text').innerHTML = defaultMapInfoText;
+      document.querySelector('#'+prevName.replace(/[ .]/g,"_")+'-chart').classList.add('hide');
       return;
     }
     
@@ -287,7 +290,11 @@
       fillColor: 'blue'
     });
     document.querySelector('#js-map-info-text').innerHTML = '<h3>' + e.target.options.name + '</h3> <div>' + mapAreaDescription[e.target.options.name] + '</div>';
+    console.log(e.target.options.name)
+    console.log(e.target.options.name.replace(/[ .]/g,"_"))
+    document.querySelector('#'+e.target.options.name.replace(/[ .]/g,"_")+'-chart').classList.remove('hide');
     
     prevLayerClicked = layer;
+    prevName = e.target.options.name;
   }
 })();
