@@ -225,31 +225,41 @@
     'CENTRO STORICO PIEDICASTELLO': 'In this Circoscrizione the number of construction is very high due to the function it has in the city life. The main constructions regard the mobility both for car and bicycle (with PNRR financing). 3 schools have been renewed for a better energy qualification. Furthermore the old castle “Buonconsiglio" has been renovated and the adjacent square also had some changes. In conclusion 2 green areas will be renovated and in a few time a indoor will be unlimited'
   }
 
-  // var polygon = L.polygon([
-  //   [46.066, 11.110],
-  //   [46.068, 11.113],
-  //   [46.064, 11.112]
-  // ]).addTo(map);
-
-  // polygon.on('click', onPolygonClick);
   let prevLayerClicked = null;
   let defaultMapInfoText = '<h3>Learn more about the single circoscrizioni</h3><div>Click on the map to see a short description of the construction sites in the circoscrizione.</div>'
   document.querySelector('#js-map-info-text').innerHTML = defaultMapInfoText;
 
+  // Load geojson data and add circoscrizioni to the map
   fetch('./assets/circoscrizioni.geojson')
     .then((response) => response.json())
     .then((json) => { 
-      // do what you want to do with `data` here...
       json.features.forEach(function(feature) {
         let elem = L.geoJSON(feature, {
           name: feature.properties.nome
         }).addTo(map);
 
         elem.on('click', onPolygonClick);
+        elem.on('mouseover', function(e) {
+          if(prevLayerClicked !== elem){
+            elem.setStyle({
+              fillOpacity: 0.3,
+              fillColor: 'blue'
+            });
+          }
+        });
+        elem.on('mouseout', function(e) {
+          if(prevLayerClicked !== elem){
+            elem.setStyle({
+              fillOpacity: 0.1,
+              fillColor: 'blue'
+            });
+          }
+        });
+        elem.bindTooltip(feature.properties.nome, {direction: 'center', className: 'map-label'});
       });
     });
 
-  // Function to be called when a polygon is clicked
+  // Function called when a polygon is clicked
   function onPolygonClick(e){
     console.log(e.target.options.name)
 

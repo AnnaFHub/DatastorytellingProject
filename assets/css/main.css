@@ -2008,6 +2008,11 @@ section,
 }
 
 #map { 
-  height: 400px; 
+  height: 500px; 
   width: 400px;
+}
+
+/* should not be done for accessibility reasons (focus with tab navigation not clear)... but for the quick fix for the presentation we'll go with this */
+path.leaflet-interactive:focus {
+  outline: none;
 }
