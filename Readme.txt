@@ -1,6 +1,5 @@
-Thanks for downloading this template!
+Datavisualization Project for the Data Storytelling (https://github.com/napo/datastorytelling_lectures_dipsco) Course at the University of Trento.
 
-Template Name: QuickStart
-Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+View the website at https://annafhub.github.io/DatastorytellingProject/
+
+Data from https://www.comune.trento.it/Aree-tematiche/Lavori-pubblici/Mappa-lavori-pubblici (06.05.2024)
