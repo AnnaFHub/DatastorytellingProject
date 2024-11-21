@@ -1,4 +1,4 @@
-Datavisualization Project for the Data Storytelling (https://github.com/napo/datastorytelling_lectures_dipsco) Course at the University of Trento.
+Datavisualization Project for the [Data Storytelling](https://github.com/napo/datastorytelling_lectures_dipsco) Course at the University of Trento.
 
 View the website at https://annafhub.github.io/DatastorytellingProject/
 
